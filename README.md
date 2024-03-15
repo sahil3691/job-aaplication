@@ -29,6 +29,7 @@ The Automated Hiring Platform is a web-based application aimed at simplifying an
 
 [![Image Alt Text](assets/images/userflow.PNG)]([websi](https://www.behance.net/gallery/183892249/Educlub-UI-UX-Case-study))
 
+[![Image Alt Text](image_url)]([website_url](https://www.behance.net/gallery/183892249/Educlub-UI-UX-Case-study))
 ## Getting Started
 
 To get started with the Automated Hiring Platform, follow these steps:
