@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.jobapplication.MainActivity
 import com.example.jobapplication.R
+import com.example.jobapplication.activities.DataActivity
 import com.example.jobapplication.databinding.ActivityRegisterBinding
 import com.example.jobapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -66,26 +67,31 @@ class RegisterActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                 task -> run {
             if (task.isSuccessful){
-                val user = User(
-                    userId = auth.currentUser!!.uid,
-                    username = username,
-                    email = email
-                )
-
-                FirebaseDatabase.getInstance().getReference("Users")
-                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
-                    .setValue(user)
-                    .addOnCompleteListener{
-                        if (it.isSuccessful){
-                            Toast.makeText(this@RegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
-                            var i = Intent(this@RegisterActivity, MainActivity::class.java)
+//                val user = User(
+//                    userId = auth.currentUser!!.uid,
+//                    username = username,
+//                    email = email
+//                )
+//
+//                FirebaseDatabase.getInstance().getReference("Users")
+//                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
+//                    .setValue(user)
+//                    .addOnCompleteListener{
+//                        if (it.isSuccessful){
+//                            Toast.makeText(this@RegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
+//                            var i = Intent(this@RegisterActivity, MainActivity::class.java)
+//                            startActivity(i)
+//                            finish()
+//                        }
+//                        else{
+//                            Toast.makeText(this@RegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
+//                        }
+//                    }
+                Toast.makeText(this@RegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
+                            var i = Intent(this@RegisterActivity, DataActivity::class.java)
                             startActivity(i)
-                            finish()
-                        }
-                        else{
-                            Toast.makeText(this@RegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
-                        }
-                    }
+                           finish()
+
             }else{
                 Toast.makeText(this@RegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
             }

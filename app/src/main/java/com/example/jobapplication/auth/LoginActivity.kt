@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.jobapplication.MainActivity
 import com.example.jobapplication.R
+import com.example.jobapplication.activities.DataActivity
 import com.example.jobapplication.databinding.ActivityLoginBinding
 import com.example.jobapplication.models.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -97,24 +98,27 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user =  User(
-                        userId =  auth.currentUser!!.uid,
-                        username = auth.currentUser!!.displayName!!,
-                        email = auth.currentUser!!.email!!
-                    )
-                    FirebaseDatabase.getInstance().getReference("Users")
-                        .child(auth.currentUser!!.uid)
-                        .setValue(user)
-                        .addOnCompleteListener{
-                            if (it.isSuccessful){
-                                Toast.makeText(this, "Signed in as ${user.username}", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
-                            }
-                            else{
-                                Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+//                    val user =  User(
+//                        userId =  auth.currentUser!!.uid,
+//                        username = auth.currentUser!!.displayName!!,
+//                        email = auth.currentUser!!.email!!
+//                    )
+//                    FirebaseDatabase.getInstance().getReference("Users")
+//                        .child(auth.currentUser!!.uid)
+//                        .setValue(user)
+//                        .addOnCompleteListener{
+//                            if (it.isSuccessful){
+//                                Toast.makeText(this, "Signed in as ${user.username}", Toast.LENGTH_SHORT).show()
+//                                startActivity(Intent(this, MainActivity::class.java))
+//                                finish()
+//                            }
+//                            else{
+//                                Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+                    Toast.makeText(this, "Signed in as ${auth.currentUser!!.displayName}", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, DataActivity::class.java))
+                             finish()
                 } else {
                     Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
