@@ -29,3 +29,18 @@ The Automated Hiring Platform is a web-based application aimed at simplifying an
 To get started with the Automated Hiring Platform, follow these steps:
 
 1. Clone the repository:
+   git clone https://github.com/divyank7436/automated-hiring-platform.git
+
+2. Install dependencies:
+    cd automated-hiring-platform
+    npm install
+
+3. Configure environment variables:
+
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines when contributing to the project:
+- Fork the repository and create your branch from `main`.
+- Make sure your code follows the project's coding style and conventions.
+- Open a pull request with a clear title and description of your changes.
