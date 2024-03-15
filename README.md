@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Automated Hiring Platform
 
 The Automated Hiring Platform is a web-based application aimed at simplifying and automating the recruitment process for both job applicants and recruiters. It leverages machine learning algorithms to match the best candidates for job openings, streamlining the hiring process and improving efficiency.
@@ -25,6 +25,9 @@ The Automated Hiring Platform is a web-based application aimed at simplifying an
 - Provide insights into missing skills and areas for improvement.
 - Enable communication channels for applicants to seek clarifications or further guidance.
 
+### 5. User Flow
+![Alt text](assets/images/userflow.PNG)
+
 ## Getting Started
 
 To get started with the Automated Hiring Platform, follow these steps:
@@ -45,6 +48,6 @@ Contributions are welcome! Please follow these guidelines when contributing to t
 - Fork the repository and create your branch from `main`.
 - Make sure your code follows the project's coding style and conventions.
 - Open a pull request with a clear title and description of your changes.
-=======
+
 ### Job-Application
->>>>>>> 680e382f3102fd97dd0151d8c52bd52a13187386
+
