@@ -26,7 +26,8 @@ The Automated Hiring Platform is a web-based application aimed at simplifying an
 - Enable communication channels for applicants to seek clarifications or further guidance.
 
 ### 5. User Flow
-![Alt text](assets/images/userflow.PNG)
+
+[![Image Alt Text](assets/images/userflow.PNG)]([websi](https://www.behance.net/gallery/183892249/Educlub-UI-UX-Case-study))
 
 ## Getting Started
 
