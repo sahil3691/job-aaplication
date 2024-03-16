@@ -1,6 +1,4 @@
-package com.example.jobapplication.auth
-
-
+package com.example.jobapplication.authRecruiter
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,11 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.jobapplication.MainActivity
 import com.example.jobapplication.R
-import com.example.jobapplication.activities.DataActivity
-import com.example.jobapplication.databinding.ActivityLoginBinding
-import com.example.jobapplication.models.User
+import com.example.jobapplication.auth.RegisterActivity
+import com.example.jobapplication.company.CompanyMainActivity
+import com.example.jobapplication.databinding.ActivityRecruiterLoginBinding
+import com.example.jobapplication.models.company
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -22,18 +20,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 
-class LoginActivity : AppCompatActivity() {
+class RecruiterLoginActivity : AppCompatActivity() {
+
 
     companion object {
         private const val RC_SIGN_IN = 9001
     }
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding : ActivityRecruiterLoginBinding
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRecruiterLoginBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -48,12 +48,12 @@ class LoginActivity : AppCompatActivity() {
 
         if (currentUser != null) {
             // The user is already signed in, navigate to MainActivity
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, CompanyMainActivity::class.java)
             startActivity(intent)
             finish() // finish the current activity to prevent the user from coming back to the SignInActivity using the back button
         }
 
-        val signUpBtn = findViewById<Button>(R.id.signup)
+        val signUpBtn : Button = binding.signup
 
         binding.button3.setOnClickListener {
             if(binding.email.text.toString().isNotEmpty() && binding.password.text.toString().isNotEmpty()){
@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signUpBtn.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            val intent = Intent(this@RecruiterLoginActivity, RecruiterRegisterActivity::class.java)
             startActivity(intent)
         }
 
@@ -72,16 +72,15 @@ class LoginActivity : AppCompatActivity() {
             signIn()
         }
 
-
-
     }
+
 
     private fun signInWithEmail(email: String, password: String) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 task ->
             run {
                 if (task.isSuccessful) {
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, CompanyMainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -100,13 +99,13 @@ class LoginActivity : AppCompatActivity() {
 
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, RecruiterLoginActivity.RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RecruiterLoginActivity.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
@@ -122,33 +121,35 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-//                    val user =  User(
-//                        userId =  auth.currentUser!!.uid,
-//                        username = auth.currentUser!!.displayName!!,
-//                        email = auth.currentUser!!.email!!
-//                    )
-//                    FirebaseDatabase.getInstance().getReference("Users")
-//                        .child(auth.currentUser!!.uid)
-//                        .setValue(user)
-//                        .addOnCompleteListener{
-//                            if (it.isSuccessful){
-//                                Toast.makeText(this, "Signed in as ${user.username}", Toast.LENGTH_SHORT).show()
-//                                startActivity(Intent(this, MainActivity::class.java))
-//                                finish()
-//                            }
-//                            else{
-//                                Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-                    Toast.makeText(this, "Signed in as ${auth.currentUser!!.displayName}", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, DataActivity::class.java))
-                             finish()
+                    val company =  company(
+                        companyId =  auth.currentUser!!.uid,
+                        companyName = auth.currentUser!!.displayName!!,
+                        companyEmail = auth.currentUser!!.email!!
+                    )
+                    FirebaseDatabase.getInstance().getReference("Companies")
+                        .child(auth.currentUser!!.uid)
+                        .setValue(company)
+                        .addOnCompleteListener{
+                            if (it.isSuccessful){
+                                Toast.makeText(this, "Signed in as ${company.companyName}", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, CompanyMainActivity::class.java))
+                                finish()
+                            }
+                            else{
+                                Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+//                    Toast.makeText(this, "Signed in as ${auth.currentUser!!.displayName}", Toast.LENGTH_SHORT).show()
+//                    startActivity(Intent(this, CompanyMainActivity::class.java))
+//                    finish()
                 } else {
                     Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-
-
 }
+
+
+
+

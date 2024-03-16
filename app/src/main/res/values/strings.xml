@@ -8,4 +8,33 @@
     <string name="sections">Sections</string>
     <string name="cart">Cart</string>
     <string name="more">More</string>
+    <string name="gender_prompt">Select your gender</string>
+    <string name="education_prompt">Select your gender</string>
+    <string name="mode_prompt">Select your mode working</string>
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="mode_options">
+        <item>Virtual </item>
+        <item>Onsite</item>
+    </string-array>
+    <string-array name="edcation_options">
+        <item>10th or Below 10th</item>
+        <item>12th Pass</item>
+        <item>Diploma</item>
+        <item>ITI</item>
+        <item>Graduate</item>
+        <item>Post Graduate</item>
+    </string-array>
+    <string name="title_activity_login_recruiter">LoginRecruiterActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

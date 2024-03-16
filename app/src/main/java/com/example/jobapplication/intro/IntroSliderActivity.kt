@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.example.jobapplication.R
+import com.example.jobapplication.activities.SelectActivity
 import com.example.jobapplication.auth.LoginActivity
 
 import com.github.appintro.AppIntro2
@@ -70,13 +71,13 @@ class IntroSliderActivity : AppIntro2() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        startActivity(Intent(this@IntroSliderActivity, LoginActivity::class.java))
+        startActivity(Intent(this@IntroSliderActivity, SelectActivity::class.java))
         finish()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        startActivity(Intent(this@IntroSliderActivity, LoginActivity::class.java))
+        startActivity(Intent(this@IntroSliderActivity, SelectActivity::class.java))
         finish()
     }
 }

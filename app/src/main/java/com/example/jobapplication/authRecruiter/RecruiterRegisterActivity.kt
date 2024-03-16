@@ -1,6 +1,4 @@
-package com.example.jobapplication.auth
-
-
+package com.example.jobapplication.authRecruiter
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,27 +9,25 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.jobapplication.MainActivity
 import com.example.jobapplication.R
-import com.example.jobapplication.activities.DataActivity
-import com.example.jobapplication.databinding.ActivityRegisterBinding
-import com.example.jobapplication.models.User
+import com.example.jobapplication.company.CompanyMainActivity
+import com.example.jobapplication.databinding.ActivityRecruiterRegisterBinding
+import com.example.jobapplication.models.company
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class RegisterActivity : AppCompatActivity() {
+class RecruiterRegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityRegisterBinding
+    private lateinit var binding : ActivityRecruiterRegisterBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var username : EditText
     private lateinit var email : EditText
     private lateinit var password : EditText
     private lateinit var createAccount : Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRecruiterRegisterBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -47,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         createAccount = binding.button3
 
         createAccount.setOnClickListener{
-            if(username.text.isNotEmpty() || email.text.isNotEmpty() || password.text.isNotEmpty()){
+            if(username.text.isNotEmpty() && email.text.isNotEmpty() && password.text.isNotEmpty()){
                 createAccountWithEmail(username.text.toString(), email.text.toString(), password.text.toString())
             }
             else{
@@ -55,47 +51,42 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
-
-
     }
 
     private fun createAccountWithEmail(username : String, email : String, password : String){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                 task -> run {
             if (task.isSuccessful){
-//                val user = User(
-//                    userId = auth.currentUser!!.uid,
-//                    username = username,
-//                    email = email
-//                )
-//
-//                FirebaseDatabase.getInstance().getReference("Users")
-//                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
-//                    .setValue(user)
-//                    .addOnCompleteListener{
-//                        if (it.isSuccessful){
-//                            Toast.makeText(this@RegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
-//                            var i = Intent(this@RegisterActivity, MainActivity::class.java)
-//                            startActivity(i)
-//                            finish()
-//                        }
-//                        else{
-//                            Toast.makeText(this@RegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
-//                        }
-//                    }
-                Toast.makeText(this@RegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
-                            var i = Intent(this@RegisterActivity, DataActivity::class.java)
+                val company = company(
+                    companyId = auth.currentUser!!.uid,
+                    companyName = username,
+                    companyEmail = email
+                )
+
+                FirebaseDatabase.getInstance().getReference("Companies")
+                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                    .setValue(company)
+                    .addOnCompleteListener{
+                        if (it.isSuccessful){
+                            Toast.makeText(this@RecruiterRegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
+                            var i = Intent(this@RecruiterRegisterActivity, CompanyMainActivity::class.java)
                             startActivity(i)
-                           finish()
+                            finish()
+                        }
+                        else{
+                            Toast.makeText(this@RecruiterRegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
+                        }
+                    }
+//                Toast.makeText(this@RecruiterRegisterActivity, "Account created successfully!", Toast.LENGTH_LONG).show()
+//                var i = Intent(this@RecruiterRegisterActivity, CompanyMainActivity::class.java)
+//                startActivity(i)
+//                finish()
 
             }else{
-                Toast.makeText(this@RegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@RecruiterRegisterActivity, "Something went wrong", Toast.LENGTH_LONG).show()
             }
         }
         }
     }
 }
+
