@@ -19,10 +19,12 @@ import com.example.jobapplication.databinding.ActivityDataBinding
 import com.example.jobapplication.databinding.ActivityMainBinding
 import com.example.jobapplication.models.User
 import com.example.jobapplication.utils.LoadingDialog
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
+import java.security.cert.Certificate
 import java.util.Calendar
 
 class DataActivity : AppCompatActivity() {
@@ -36,6 +38,7 @@ class DataActivity : AppCompatActivity() {
     private lateinit var dob : TextView
     private var imageUri : Uri? = null
     private var resume : Uri? = null
+    private var certificates : Uri? = null
 
     private val selectImage = registerForActivityResult(ActivityResultContracts.GetContent()){
         imageUri = it
@@ -45,6 +48,11 @@ class DataActivity : AppCompatActivity() {
     private val selectResume = registerForActivityResult(ActivityResultContracts.GetContent()){
         resume = it
         binding.resumeStatus.text = resume.toString()
+    }
+
+    private val selectCertificate = registerForActivityResult(ActivityResultContracts.GetContent()){
+        certificates= it
+        binding.certificateStatus.text = resume.toString()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +68,7 @@ class DataActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        username = binding.fullName
+        username = binding.fullname
         dob = binding.dob
         binding.calendar.setOnClickListener{
             clickDatePicker()
@@ -74,8 +82,12 @@ class DataActivity : AppCompatActivity() {
             selectResume.launch("application/pdf")
         }
 
+        binding.linearLayout2Certificate.setOnClickListener {
+            selectCertificate.launch("application/pdf")
+        }
+
         binding.submitData.setOnClickListener {
-            if (binding.fullName.text.toString().isEmpty() || binding.dob.text.toString().isEmpty() || binding.spinnerGender.isEmpty() || binding.spinnerEducation.isEmpty()){
+            if (binding.fullname.text.toString().isEmpty() || binding.dob.text.toString().isEmpty() || binding.spinnerGender.isEmpty() || binding.spinnerEducation.isEmpty()){
                 Toast.makeText(this, "Please fill above fields", Toast.LENGTH_LONG).show()
             }
             else{
@@ -94,6 +106,8 @@ class DataActivity : AppCompatActivity() {
                 .child(firebaseAuth.currentUser!!.uid).child("profile.jpg")
             val resumeRef = FirebaseStorage.getInstance().getReference("resume")
                 .child(firebaseAuth.currentUser!!.uid).child("resume.pdf")
+            val certificateRef = FirebaseStorage.getInstance().getReference("certificates")
+                .child(firebaseAuth.currentUser!!.uid).child("certificate.pdf")
 
             profileImageRef.putFile(imageUri!!)
                 .continueWithTask { task ->
@@ -119,7 +133,22 @@ class DataActivity : AppCompatActivity() {
                             .addOnCompleteListener { resumeTask ->
                                 if (resumeTask.isSuccessful) {
                                     val resumeUrl = resumeTask.result.toString()
-                                    storeData(profileImageUrl, resumeUrl)
+                                    certificateRef.putFile(certificates!!)
+                                        .continueWithTask { task ->
+                                            if (!task.isSuccessful) {
+                                                task.exception?.let {
+                                                    throw it
+                                                }
+                                            }
+                                            certificateRef.downloadUrl
+                                        }
+                                        .addOnCompleteListener { certificateTask ->
+                                            if(certificateTask.isSuccessful){
+                                                val certificateUrl = certificateTask.result.toString()
+                                                storeData(profileImageUrl, resumeUrl,certificateUrl)
+                                            }
+                                        }
+
                                 } else {
                                     LoadingDialog.hideDialog()
                                     Toast.makeText(this, resumeTask.exception?.message, Toast.LENGTH_LONG).show()
@@ -135,15 +164,27 @@ class DataActivity : AppCompatActivity() {
         }
     }
 
-    private fun storeData(profileImageUrl: String, resumeUrl: String) {
+    private fun storeData(profileImageUrl: String, resumeUrl: String, certificateUrl: String) {
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                //Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            var token = task.result
+
         val data = User(
             userId = firebaseAuth.currentUser!!.uid,
             username = username.text.toString(),
             image = profileImageUrl,
             resume = resumeUrl,
-            education = binding.education.toString(), // Ensure education field is correctly bound
-            gender = binding.gender.toString(), // Ensure gender field is correctly bound
-            dob = dob.text.toString()
+            education = binding.spinnerEducation.selectedItem.toString(), // Retrieve selected education
+            gender = binding.spinnerGender.selectedItem.toString(), // Retrieve selected gender
+            dob = dob.text.toString(),
+            fcmToken = token,
+            experience = if (binding.radioButtonYes.isChecked) "Yes" else "No" // Retrieve selected experience
+
         )
 
         FirebaseDatabase.getInstance().getReference("Users")
@@ -160,7 +201,9 @@ class DataActivity : AppCompatActivity() {
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
                 }
             }
+        })
     }
+
 
 
     private fun clickDatePicker(){

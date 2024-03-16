@@ -2,9 +2,134 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".intro.StartingActivity">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/startAnimation"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="172dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Jobify!"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="600dp"
+        android:textSize="25sp"
+        android:id="@+id/tv1"
+        android:visibility="invisible"
+        android:animateLayoutChanges="true"
+        />
+
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join with No excuse, Explore with no regret"
+        android:textColor="@color/primary"
+        android:textSize="21sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
+        android:layout_marginTop="5dp"
+        android:visibility="invisible"
+        android:animateLayoutChanges="true"
+        />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="86dp"
+        android:layout_height="62dp"
+        android:background="@drawable/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/StartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/animatedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="540dp"
+            android:background="@drawable/slide_down_page"
+            >
+
+            <ImageView
+                android:id="@+id/logoIv"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:src="@drawable/logo11"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="140dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="#00FFFFFF"
+                />
+
+
+
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jobify"
+                android:fontFamily="@font/myfont"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoIv"
+                android:visibility="invisible"
+                android:layout_marginTop="30dp"
+                android:animateLayoutChanges="true"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

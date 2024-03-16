@@ -43,11 +43,11 @@
         android:padding="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullName">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/document" />
 
         <TextView
@@ -55,23 +55,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload your Resume/CV here"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/fullName"
+    <LinearLayout
+        android:id="@+id/linearLayout2Certificate"
         android:layout_width="399dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="6dp"
-        android:layout_marginTop="19dp"
-        android:hint="Full Name"
-        android:textSize="22sp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/item"
+        android:padding="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/document" />
+
+        <TextView
+            android:id="@+id/certificate_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload your certificates (optional)"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fullnameLl"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1">
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:inputType="textCapWords"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageView
         android:id="@+id/calendar"
@@ -81,7 +122,7 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/calendar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/fullnameLl" />
 
     <TextView
         android:id="@+id/dob"
@@ -92,15 +133,15 @@
         android:text="Selected Dob"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/calendar"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/fullnameLl" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="13dp"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar">
@@ -129,7 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -155,9 +196,9 @@
         android:id="@+id/linearLayout5"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
@@ -193,15 +234,16 @@
 
     <Button
         android:id="@+id/submitData"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="20dp"
         android:text="Submit"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout5" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2Certificate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

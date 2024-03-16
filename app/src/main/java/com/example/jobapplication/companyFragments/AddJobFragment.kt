@@ -62,36 +62,43 @@ class AddJobFragment : Fragment() {
 
     private fun uploadpost(postion: String, skills: String, workExperience: String, location: String, description: String, salary : String,duration: String) {
         LoadingDialog.showDialog(requireContext())
-        FirebaseDatabase.getInstance().getReference("Companies").child(firebaseAuth.currentUser!!.uid)
-            .addListenerForSingleValueEvent(object : ValueEventListener{
+        val firebaseRef = FirebaseDatabase.getInstance().getReference("Companies").child(firebaseAuth.currentUser!!.uid)
+            firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val company = snapshot.getValue(company::class.java)
+
                     if(company!=null){
                         val jobId = generateJobId()
+                        company.jobs.add(jobId)
+                        firebaseRef.setValue(company).addOnCompleteListener {
+                            val job = Job(
+                                jobId = jobId,
+                                postion = postion,
+                                description = description,
+                                skills = skills,
+                                workExperience = workExperience,
+                                location = location,
+                                companyName = company.companyName,
+                                salary = salary,
+                                duration = duration
+                            )
 
-                        val job = Job(
-                            jobId = jobId,
-                            postion = postion,
-                            description = description,
-                            skills = skills,
-                            workExperience = workExperience,
-                            location = location,
-                            companyName = company.companyName,
-                            salary = salary,
-                            duration = duration
-                        )
-                        val jobRef = FirebaseDatabase.getInstance().getReference("Jobs").child(jobId)
-                        jobRef.setValue(job).addOnCompleteListener {
-                            task -> if(task.isSuccessful){
+
+
+                            val jobRef = FirebaseDatabase.getInstance().getReference("Jobs").child(jobId)
+                            jobRef.setValue(job).addOnCompleteListener {
+                                    task -> if(task.isSuccessful){
                                 LoadingDialog.hideDialog()
-                            Toast.makeText(requireContext(), "Job Uploaded successfully", Toast.LENGTH_LONG).show()
-                            val intent = Intent(requireContext(), CompanyMainActivity::class.java)
+                                Toast.makeText(requireContext(), "Job Uploaded successfully", Toast.LENGTH_LONG).show()
+                                val intent = Intent(requireContext(), CompanyMainActivity::class.java)
 
 
-                        }else{
-                            Toast.makeText(requireContext(), "Something went wrong!",Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(requireContext(), "Something went wrong!",Toast.LENGTH_LONG).show()
+                            }
+                            }
                         }
-                        }
+
                     }
                 }
 

@@ -7,6 +7,11 @@ data class User(
     var resume : String = "",
     var education :String = "",
     var gender : String = "",
-    var dob : String = ""
+    var dob : String = "",
+    var skills : String = "",
+    var certificate : String = "",
+    var experience : String = "",
+    var jobs : MutableList<String> = mutableListOf(),
+    var fcmToken : String = "",
 
 )

@@ -5,6 +5,7 @@ package com.example.jobapplication.auth
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             finish() // finish the current activity to prevent the user from coming back to the SignInActivity using the back button
         }
 
-        val signUpBtn = findViewById<Button>(R.id.signup)
+        val signUpBtn = findViewById<TextView>(R.id.signUpTv)
 
         binding.button3.setOnClickListener {
             if(binding.email.text.toString().isNotEmpty() && binding.password.text.toString().isNotEmpty()){
@@ -68,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.google.setOnClickListener {
+        binding.button4.setOnClickListener {
             signIn()
         }
 

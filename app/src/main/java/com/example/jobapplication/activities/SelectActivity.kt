@@ -13,7 +13,7 @@ import com.example.jobapplication.databinding.ActivitySelectBinding
 
 class SelectActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySelectBinding
+    private lateinit var binding : com.example.jobapplication.databinding.ActivitySelectBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

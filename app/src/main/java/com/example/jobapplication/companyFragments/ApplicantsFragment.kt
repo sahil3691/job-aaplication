@@ -5,7 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jobapplication.R
+import com.example.jobapplication.adapters.JobAdapter
+import com.example.jobapplication.adapters.JobAdapter2
+import com.example.jobapplication.databinding.FragmentApplicantsBinding
+import com.example.jobapplication.models.Job
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,9 +32,14 @@ class ApplicantsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var binding : FragmentApplicantsBinding
+    private lateinit var recyclerView : RecyclerView
+    private lateinit var jobAdapter: JobAdapter2
+    private var jobList = mutableListOf<Job>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = FragmentApplicantsBinding.inflate(layoutInflater)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -35,8 +51,67 @@ class ApplicantsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_applicants, container, false)
+        //return inflater.inflate(R.layout.fragment_applicants, container, false)
+        return binding.root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = binding.applicantRv
+
+
+        // Initialize RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Initialize adapter
+        // Initialize adapter with context
+        jobAdapter = JobAdapter2(requireContext(), jobList)
+        recyclerView.adapter = jobAdapter
+
+        loadCompanyJobs()
+    }
+
+
+    private fun loadCompanyJobs() {
+        val companyId = FirebaseAuth.getInstance().currentUser!!.uid
+        val jobRef = FirebaseDatabase.getInstance().getReference("Companies").child(companyId)
+            .child("jobs")
+        jobRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                jobList.clear()
+                for (jobIdSnapshot in snapshot.children) {
+                    val jobId = jobIdSnapshot.getValue(String::class.java)
+                    if(jobId!=null) {
+                        val jobRef =
+                            FirebaseDatabase.getInstance().getReference("Jobs").child(jobId)
+                        jobRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(jobSnapshot: DataSnapshot) {
+                                val job = jobSnapshot.getValue(Job::class.java)
+                                job?.let { jobList.add(it) }
+                                jobAdapter.notifyDataSetChanged()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Handle error
+                            }
+                        })
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+
+
+
 
     companion object {
         /**

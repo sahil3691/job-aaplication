@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.jobapplication"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -74,6 +74,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+    implementation ("com.github.afreakyelf:Pdf-Viewer:2.0.7")
 
 
 }

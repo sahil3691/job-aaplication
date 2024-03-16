@@ -12,7 +12,7 @@ import com.example.jobapplication.activities.JobDetailActivity
 import com.example.jobapplication.models.Job
 
 
-class JobAdapter(private val context: Context, private val jobList: List<Job>) :
+class JobAdapter(private val context: Context, private var jobList: List<Job>) :
     RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     class JobViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,4 +47,9 @@ class JobAdapter(private val context: Context, private val jobList: List<Job>) :
     }
 
     override fun getItemCount() = jobList.size
+
+    fun updateList(newList: List<Job>) {
+        jobList = newList
+        notifyDataSetChanged()
+    }
 }

@@ -8,7 +8,7 @@ data class Job(
     var location :String = "",
     var companyName : String = "",
     var jobId : String = "",
-    var applicants : MutableList<User> = mutableListOf(),
+    var applicants : MutableList<String> = mutableListOf(),
     var salary : String = "",
     var duration : String = "",
     var date: String = "",
