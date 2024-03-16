@@ -62,7 +62,8 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Initialize adapter
-        jobAdapter = JobAdapter(jobList)
+        // Initialize adapter with context
+        jobAdapter = JobAdapter(requireContext(), jobList)
         recyclerView.adapter = jobAdapter
 
 //        // Load user profile image
