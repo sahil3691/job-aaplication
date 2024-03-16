@@ -5,7 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.jobapplication.R
+import com.example.jobapplication.adapters.JobAdapter
+import com.example.jobapplication.databinding.FragmentHomeBinding
+import com.example.jobapplication.models.Job
+import com.example.jobapplication.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,23 +34,88 @@ private const val ARG_PARAM2 = "param2"
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    private lateinit var binding : FragmentHomeBinding
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView : RecyclerView
+    private lateinit var jobAdapter: JobAdapter
+    private var jobList = mutableListOf<Job>()
+    private lateinit var profileDp : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = binding.jobsListingRv
+        profileDp = binding.profileDp
+
+        // Initialize RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Initialize adapter
+        jobAdapter = JobAdapter(jobList)
+        recyclerView.adapter = jobAdapter
+
+//        // Load user profile image
+//        var userId = FirebaseAuth.getInstance().currentUser!!.uid
+//        Toast.makeText(requireContext(), " $userId" , Toast.LENGTH_LONG).show()
+        val userReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
+        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(User::class.java)
+                user?.let {
+                    Glide.with(requireContext())
+                        .load(user.image)
+                        .into(profileDp)
+
+                   // Toast.makeText(requireContext(), " " + user.image + " " + user.username , Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
+
+        // Load jobs
+        val jobReference = FirebaseDatabase.getInstance().getReference("Jobs")
+        jobReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                jobList.clear()
+                for (postSnapshot in snapshot.children) {
+                    val job = postSnapshot.getValue(Job::class.java)
+                    job?.let { jobList.add(it) }
+                }
+                jobAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
+    }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+       // return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
+
+
     }
 
     companion object {
