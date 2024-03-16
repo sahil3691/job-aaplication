@@ -16,10 +16,12 @@ import com.google.android.material.navigation.NavigationView
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 
+
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener  {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
 
     companion object {
         // you can put any unique id here, but because I am using Navigation Component I prefer to put it as
@@ -30,15 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val CART_ITEM = R.id.profileFragment
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        with(binding) {
-            setContentView(root)
-            initNavHost()
-            setUpBottomNavigation()
-        }
-    }
+
 
     private fun ActivityMainBinding.setUpBottomNavigation() {
         val bottomNavigationItems = mutableListOf(

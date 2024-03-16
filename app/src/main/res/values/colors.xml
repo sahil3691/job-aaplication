@@ -5,7 +5,7 @@
     <color name="yellow">#FFEB3B</color>
     <color name="red">#E80E0E</color>
     <color name="purple">#4A5EC3</color>
-    <color name="background">#DBDDE8</color>
+    <color name="background">#646464</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>

@@ -24,5 +24,6 @@ class StartingActivity : AppCompatActivity() {
             startActivity(Intent(this@StartingActivity, IntroSliderActivity::class.java))
         }, 4000)
 
+
     }
 }
