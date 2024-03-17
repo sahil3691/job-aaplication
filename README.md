@@ -175,6 +175,33 @@ In India, the topic of career advancement is crucial due to its vast workforce s
 3. Configure environment variables:
 ```
 
+# App 
+![Image Alt Text](assets/images/landing.jpeg)
+![Image Alt Text](assets/images/start-1.jpeg)
+![Image Alt Text](assets/images/start-2.jpeg)
+![Image Alt Text](assets/images/start-3.jpeg)
+![Image Alt Text](assets/images/start-4.jpeg)
+![Image Alt Text](assets/images/start-5.jpeg)
+![Image Alt Text](assets/images/start-6.jpeg)
+![Image Alt Text](assets/images/sign in.jpeg)
+![Image Alt Text](assets/images/hone.jpeg)
+![Image Alt Text](assets/images/message.jpeg)
+![Image Alt Text](assets/images/settings.jpeg)
+![Image Alt Text](assets/images/setting.jpeg)
+![Image Alt Text](assets/images/upload.jpeg)
+![Image Alt Text](assets/images/company-sign.jpeg)
+![Image Alt Text](assets/images/message-1.jpeg)
+![Image Alt Text](assets/images/notification.jpeg)
+
+
+## App Preview
+
+### Video Preview
+
+
+[Download Video](assets/videos/video.mp4)
+
+
 ## Contributing
 
 Contributions are welcome! Please follow these guidelines when contributing to the project:
@@ -194,6 +221,12 @@ This project exists thanks to all the people who contribute.
   
 - [Sahil Dhargave](https://github.com/sahildhargave)
 
+
+## License
+
+[MIT](https://github.com/Divyank7436/Job-Application/blob/main/LICENCE)
+
+You are welcome to use this however you wish within the MIT license, but please retain [back to repo](https://github.com/Divyank7436/Job-Application/tree/main)
   
 ## License
 
