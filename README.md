@@ -152,14 +152,14 @@ In India, the topic of career advancement is crucial due to its vast workforce s
   
 
 ### Feature Of Firebase
-😎 Firestore Cloud
-😎 Read Time Database
-😎 Authentication
-😎 Cloud Firestore
-😎 Cloud Functions
-😎 Analytics
-😎 Dynamic Links
-😎 App Indexing
+- 😎 Firestore Cloud
+- 😎 Read Time Database
+- 😎 Authentication
+- 😎 Cloud Firestore
+- 😎 Cloud Functions
+- 😎 Analytics
+- 😎 Dynamic Links
+- 😎 App Indexing
 
 
 
