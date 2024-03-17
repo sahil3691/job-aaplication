@@ -193,3 +193,10 @@ This project exists thanks to all the people who contribute.
 - [Divyank Panwar](https://github.com/Divyank7436)
   
 - [Sahil Dhargave](https://github.com/sahildhargave)
+
+  
+## License
+
+[MIT](https://github.com/Divyank7436/Job-Application/blob/main/LICENCE)
+
+You are welcome to use this however you wish within the MIT license, but please retain [back to repo](https://github.com/Divyank7436/Job-Application/tree/main)
