@@ -198,6 +198,7 @@ In India, the topic of career advancement is crucial due to its vast workforce s
 
 ### Video Preview
 
+
 https://github.com/Divyank7436/Job-Application/blob/main/assets/images/screen-20240317-133555.mp4
 [Download Video](assets/videos/video.mp4)https://github.com/Divyank7436/Job-Application/blob/main/assets/images/screen-20240317-134013.mp4
 
