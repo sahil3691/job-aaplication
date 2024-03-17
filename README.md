@@ -1,9 +1,10 @@
 
 # Jobifier
 
-An program called the Automated Hiring Platform is designed to make the hiring process easier and more automated for recruiters as well as job seekers. By using machine learning algorithms, it matches the most qualified applicants with available positions, expediting the hiring process and increasing productivity.
+The Automated Hiring Platform is a application aimed at simplifying and automating the recruitment process for both job applicants and recruiters. It leverages machine learning algorithms to match the best candidates for job openings, streamlining the hiring process and improving efficiency.
 
 ### Objective
+ 
  
 Our project aims to revolutionize the job search and professional networking landscape in India by providing a comprehensive platform tailored to the unique needs and preferences of Indian professionals. 
  
@@ -181,4 +182,14 @@ Contributions are welcome! Please follow these guidelines when contributing to t
 - Make sure your code follows the project's coding style and conventions.
 - Open a pull request with a clear title and description of your changes.
 
-### Job-Application
+
+## 🎯 Contributors
+
+This project exists thanks to all the people who contribute. 
+- [Akhash-Palve](https://github.com/AKASH-PALVE)
+  
+- [Prathamesh Mandge](https://github.com/mandgeprathamesh)
+  
+- [Divyank Panwar](https://github.com/Divyank7436)
+  
+- [Sahil Dhargave](https://github.com/sahildhargave)
