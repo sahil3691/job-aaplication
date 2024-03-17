@@ -1,7 +1,7 @@
 
-# Automated Hiring Platform
+# Jobifier
 
-The Automated Hiring Platform is a web-based application aimed at simplifying and automating the recruitment process for both job applicants and recruiters. It leverages machine learning algorithms to match the best candidates for job openings, streamlining the hiring process and improving efficiency.
+The Automated Hiring Platform is a application aimed at simplifying and automating the recruitment process for both job applicants and recruiters. It leverages machine learning algorithms to match the best candidates for job openings, streamlining the hiring process and improving efficiency.
 
 ### Objective
  
@@ -152,14 +152,14 @@ In India, the topic of career advancement is crucial due to its vast workforce s
   
 
 ### Feature Of Firebase
-- 😎 Firestore Cloud
-- 😎 Read Time Database
-- 😎 Authentication
-- 😎 Cloud Firestore
-- 😎 Cloud Functions
-- 😎 Analytics
-- 😎 Dynamic Links
-- 😎 App Indexing
+😎 Firestore Cloud
+😎 Read Time Database
+😎 Authentication
+😎 Cloud Firestore
+😎 Cloud Functions
+😎 Analytics
+😎 Dynamic Links
+😎 App Indexing
 
 
 
@@ -183,5 +183,3 @@ Contributions are welcome! Please follow these guidelines when contributing to t
 - Open a pull request with a clear title and description of your changes.
 
 ### Job-Application
-
-
