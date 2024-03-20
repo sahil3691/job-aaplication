@@ -60,16 +60,21 @@ const updateprofile=asyncHandler(async(req,res)=>{
 });
 
 const appliedjobs=(async(req,res)=>{
-    const userid=req.body.olduserid;
+    const {userid}=req.body;
+    // console.log(userid);
     try {
-        const olduser = await user.findById(userid).populate('applied');
-        console.log(olduser);
+        const olduser = await user.findById(userid).populate({
+            path: 'applied',
+            model: 'Jobs'
+        });
+        // console.log(olduser);
+        // console.log(olduser.applied);
         if (!olduser || !olduser.applied) {
             return [];
         }
         const appliedJobs = olduser.applied;
-        console.log(appliedJobs);
-        return appliedJobs;
+        // console.log(appliedJobs);
+        res.json(appliedJobs);
     } catch (error) {
         return res.status(500).json({msg: error.message});
     }

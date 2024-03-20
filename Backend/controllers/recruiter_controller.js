@@ -1,6 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
-import errorHandler from '../middlewares/errorhandler.js';
 import recruiter from '../models/recruiter.js';
+import Jobs from '../models/jobs.js';
 
 const updateprofile=asyncHandler(async(req,res)=>{
     const {
@@ -45,9 +45,10 @@ const updateprofile=asyncHandler(async(req,res)=>{
     }
 })
 const cretatejob=asyncHandler(async(req,res)=>{
-    const { userid } = req.body.userid; 
+    const { userid ,position,jobTitle,jobType,location,salary,vacancies,experience,desc,requirements} = req.body; 
+    console.log(userid);
     try {
-        const recruiterone = await recruiter.findbyId({ userid }); 
+        const recruiterone = await recruiter.findById( userid); 
 
         if (!recruiterone) {
             return res.status(404).json({ error: 'Recruiter not found' });
@@ -55,19 +56,18 @@ const cretatejob=asyncHandler(async(req,res)=>{
 
         const newJob = new Jobs({
             company: recruiterone._id,
-            position: req.body.position,
-            jobTitle: req.body.jobTitle,
-            jobType: req.body.jobType,
-            location: req.body.location,
-            salary: req.body.salary,
-            vacancies: req.body.vacancies,
-            experience: req.body.experience,
-            desc: req.body.desc,
-            requirements: req.body.requirements
+            position:position,
+            jobTitle:jobTitle,
+            jobType:jobType,
+            location:location,
+            salary:salary,
+            vacancies:vacancies,
+            experience:experience,
+            desc:desc,
+            requirements:requirements
         });
 
         await newJob.save();
-
         recruiterone.jobsOffered.push(newJob._id);
         await recruiterone.save();
 
@@ -78,9 +78,10 @@ const cretatejob=asyncHandler(async(req,res)=>{
     }
 });
 
-const getalljobs=asyncHandler(async()=>{
+const getalljobs=asyncHandler(async(req,res)=>{
     try {
         const jobPosts = await Jobs.find({});
+        console.log(jobPosts);
         res.json({ jobPosts });
     } catch (error) {
         console.error(error);
@@ -89,9 +90,9 @@ const getalljobs=asyncHandler(async()=>{
 });
 
 const getrecruitermadejobs=asyncHandler(async(req,res)=>{
-    const { recruiterId } = req.body.recruiterId;
+    const { recruiterId } = req.body;
     try {
-        const jobPosts = await Jobs.find({ recruiterId });
+        const jobPosts = await Jobs.find({recruiterId});
         res.json({ jobPosts });
     } catch (error) {
         console.error(error);
@@ -100,13 +101,17 @@ const getrecruitermadejobs=asyncHandler(async(req,res)=>{
 });
 
 const getusersofparticularjob=asyncHandler(async(req,res)=>{
-    const { jobId } = req.body.jobId;
+    const { jobId } = req.body;
+    console.log(jobId);
     try {
         const jobPost = await Jobs.findById(jobId).populate({
             path: 'application',
-            model: 'Users'
+            model: 'User'
         });
-
+        console.log(jobPost);
+        if (!jobPost || !jobPost.application) {
+            return [];
+        }
         if (!jobPost) {
             return res.status(404).json({ error: 'Job post not found' });
         }
@@ -117,6 +122,5 @@ const getusersofparticularjob=asyncHandler(async(req,res)=>{
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 export {updateprofile,cretatejob,getalljobs,getrecruitermadejobs,getusersofparticularjob}; 
