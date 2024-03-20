@@ -1,5 +1,4 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
-import {v2 as cloudinary} from 'cloudinary';
 import user from '../models/user.js';
 import jwt from 'jsonwebtoken';
           
