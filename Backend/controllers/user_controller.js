@@ -1,6 +1,7 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import user from '../models/user.js';
 import jwt from 'jsonwebtoken';
+import Jobs from '../models/jobs.js';
           
 // cloudinary.config({ 
 //   cloud_name: process.env.CLOUD_NAME,
@@ -58,7 +59,7 @@ const updateprofile=asyncHandler(async(req,res)=>{
     }
 });
 
-const appliedjobs=(async(req,res)=>{
+const appliedjobs=asyncHandler(async(req,res)=>{
     const {userid}=req.body;
     // console.log(userid);
     try {
@@ -79,4 +80,29 @@ const appliedjobs=(async(req,res)=>{
     }
 });
 
-export {updateprofile,appliedjobs}; 
+const applyforjob=asyncHandler(async(req,res)=>{
+    try {
+        const { jobId ,userId} = req.body;
+        const user = await user.findById(userId);
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
+        const job = await Jobs.findById(jobId);
+        if (!job) {
+          return res.status(404).json({ message: 'Job not found' });
+        }
+    
+        user.applied.push(jobId);
+        await user.save();
+
+        job.application.push(userId);
+        await job.save();
+    
+        return res.status(200).json({ message: 'Job application successful' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+});
+export {updateprofile,appliedjobs,applyforjob}; 
